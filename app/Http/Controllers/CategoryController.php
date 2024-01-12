@@ -2,41 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
+use App\Repositories\Category\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
 
+    private $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository )
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index(){
-        // return view with categories
         return view('dashboard.caregory.list-categories',[
-            'categories' => Category::all()
+            'categories' => $this->categoryRepository->all()
         ]);
     }
 
     public function create(){
-        //return view to create
         return view('dashboard.caregory.create-category');
     }
 
-    public function store(Request $request){
-        // validate
-        $data = $request->validate([
-            'title' => 'required',
-            'description' => 'required|min:8',
-            'image' => 'required|image',
-        ]);
-        // prepare data (store image and return path)
-        if($request->has('image')){
-            $path = $data['image']->store('public/categories');
-            $path = str_replace('public','storage',$path);
-            $data['image'] = $path;
-        }
-        // store in database
-        Category::create($data);
-        // redirect to categories index
+    public function store(StoreCategoryRequest $request)
+    {
+        $this->categoryRepository->customCreate($request->all());
         return redirect('admin/list-categories')->with('create-success','Category created successfully!');
     }
 

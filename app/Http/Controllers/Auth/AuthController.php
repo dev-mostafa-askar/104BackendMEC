@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    // response
     public function create(){
         return view('auth.login');
     }
@@ -55,6 +56,7 @@ class AuthController extends Controller
 
         return redirect(route('login'))->with('create-success','register successfully');
     }
+
 
     // form front
     // rotue

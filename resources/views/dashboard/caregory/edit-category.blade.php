@@ -23,12 +23,18 @@
                 <div style="color: red" class="error">{{$errors->first('description')}}</div>
             @endif
         </div>
-        <div class="form-group">
-          <label for="image">Image</label>
-          <input type="file" name="image" class="form-control" id="image" placeholder="image">
-          @if($errors->has('image'))
-              <div style="color: red" class="error">{{$errors->first('image')}}</div>
-         @endif
+        <div class="row d-flex justify-content-between">
+          <div class="form-group col-md-6">
+            <label for="image">Image</label>
+            <input type="file" name="image" class="form-control" id="image" placeholder="image">
+            @if($errors->has('image'))
+            <div style="color: red" class="error">{{$errors->first('image')}}</div>
+            @endif
+          </div>
+          <div class="form-group col-md-4">
+            <label for="">Old image</label>
+            <img src="{{asset($category->image)}}" style="width: 75px; object-fit: contain; " alt="">
+          </div>
         </div>
       </div>
       <!-- /.card-body -->

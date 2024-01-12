@@ -38,7 +38,7 @@ Route::prefix('admin')->middleware('admin')->group(function(){
     Route::post('/update-user/{user}',[UserController::class,'update']);
     Route::get('/delete-user/{user}' , [UserController::class , 'delete']);
 
-    Route::get('/list-posts',[ PostController::class , 'index']);
+    Route::get('/list-posts',[ PostController::class , 'index'])->name('posts.index');
     Route::get('/create-post',[ PostController::class , 'create']);
     Route::post('/store-post',[PostController::class,'store']);
     Route::get('/edit-post/{post}',[ PostController::class , 'edit']);
